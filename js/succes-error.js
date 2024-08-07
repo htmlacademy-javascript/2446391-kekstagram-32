@@ -11,44 +11,44 @@ const closeErrorBtnElement = errorUploadElement.querySelector('.error__button');
 const successUploadElement = successUploadTemplateElement.cloneNode(true);
 const closeSuccesBtnElement = successUploadElement.querySelector('.success__button');
 
-function onEscKeyMessages(evt) {
+function onEscapeKeydown(evt) {
   if (isEscapeKey(evt)) {
-    removeErrorMessage();
-    document.removeEventListener('keydown', onEscKeyMessages);
+    onMessageCloseClick();
+    document.removeEventListener('keydown', onEscapeKeydown);
   }
 }
 
-const windowTapRemove = (evt) => {
+const onWindowClick = (evt) => {
   if (errorUploadElement === (evt.target)) {
     errorUploadElement.remove();
-    window.removeEventListener('click', windowTapRemove);
+    window.removeEventListener('click', onWindowClick);
   }
 
   if (successUploadElement === (evt.target)) {
     successUploadElement.remove();
-    window.removeEventListener('click', windowTapRemove);
+    window.removeEventListener('click', onWindowClick);
   }
 };
 
-function removeErrorMessage() {
+function onMessageCloseClick() {
   errorUploadElement.remove();
   successUploadElement.remove();
 
-  document.removeEventListener('keydown', onEscKeyMessages);
+  document.removeEventListener('keydown', onEscapeKeydown);
 }
 
 const openSuccessMessage = () => {
   bodyElement.append(successUploadElement);
-  closeSuccesBtnElement.addEventListener('click', removeErrorMessage);
-  document.addEventListener('keydown', onEscKeyMessages);
-  window.addEventListener('click', windowTapRemove);
+  closeSuccesBtnElement.addEventListener('click', onMessageCloseClick);
+  document.addEventListener('keydown', onEscapeKeydown);
+  window.addEventListener('click', onWindowClick);
 };
 
 const openErrorMessage = () => {
   bodyElement.append(errorUploadElement);
-  closeErrorBtnElement.addEventListener('click', removeErrorMessage);
-  document.addEventListener('keydown', onEscKeyMessages);
-  window.addEventListener('click', windowTapRemove);
+  closeErrorBtnElement.addEventListener('click', onMessageCloseClick);
+  document.addEventListener('keydown', onEscapeKeydown);
+  window.addEventListener('click', onWindowClick);
 };
 
 const openErrorGallery = () => {

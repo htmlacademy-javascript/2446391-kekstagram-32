@@ -6,22 +6,22 @@ const bigPictureElement = document.querySelector('.big-picture');
 const bigPictureCancelElement = document.querySelector('.big-picture__cancel');
 const picturesElement = document.querySelector('.pictures');
 
-const onEscapeKeyClosePicture = (evt) => {
+const onEscapeKeydown = (evt) => {
   if (isEscapeKey(evt)) {
-    onBigPictureClose();
+    onBigPictureCancelClick();
   }
 };
 
 const openBigPicture = () => {
   bigPictureElement.classList.remove('hidden');
   bodyElement.classList.add('modal-open');
-  document.addEventListener('keydown', onEscapeKeyClosePicture);
+  document.addEventListener('keydown', onEscapeKeydown);
 };
 
-function onBigPictureClose () {
+function onBigPictureCancelClick () {
   bigPictureElement.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
-  document.removeEventListener('keydown', onEscapeKeyClosePicture);
+  document.removeEventListener('keydown', onEscapeKeydown);
 }
 
 const renderBigPicture = (picrures) => {
@@ -46,7 +46,7 @@ const renderBigPicture = (picrures) => {
   };
 
   picturesElement.addEventListener('click', onPictureClick);
-  bigPictureCancelElement.addEventListener('click', onBigPictureClose);
+  bigPictureCancelElement.addEventListener('click', onBigPictureCancelClick);
 };
 
 export { renderBigPicture };

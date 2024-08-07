@@ -81,9 +81,9 @@ const isFocused = () => document.activeElement === hashtagsInputElement || docum
 
 const hasError = () => Boolean(bodyElement.querySelector('.error'));
 
-function onEscKeyCloseForm(evt) {
+function onEscapeKeydown(evt) {
   if (isEscapeKey(evt) && !isFocused() && !hasError()) {
-    onCloseForm();
+    onFormCloseClick();
   }
 }
 
@@ -95,9 +95,9 @@ const showForm = () => {
   overlayFormElement.classList.remove('hidden');
 };
 
-function onCloseForm() {
+function onFormCloseClick() {
   bodyElement.classList.remove('modal-open');
-  document.removeEventListener('keydown', onEscKeyCloseForm);
+  document.removeEventListener('keydown', onEscapeKeydown);
   formUploadElement.reset();
   pristine.reset();
   hideForm();
@@ -105,7 +105,7 @@ function onCloseForm() {
 
 const onOpenForm = () => {
   bodyElement.classList.add('modal-open');
-  document.addEventListener('keydown', onEscKeyCloseForm);
+  document.addEventListener('keydown', onEscapeKeydown);
   getOriginalEffect();
   showForm();
 };
@@ -124,7 +124,7 @@ const onFileInputChange = () => {
 
 const openAndCloseForm = () => {
   inputFormElement.addEventListener('change', onFileInputChange);
-  cancelFormElement.addEventListener('click', onCloseForm);
+  cancelFormElement.addEventListener('click', onFormCloseClick);
 };
 
-export { openAndCloseForm, onFormSubmit, onCloseForm };
+export { openAndCloseForm, onFormSubmit, onFormCloseClick };
